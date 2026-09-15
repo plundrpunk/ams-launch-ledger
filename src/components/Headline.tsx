@@ -29,11 +29,12 @@ export function Headline() {
         <Reveal className="mt-14 md:mt-16 lg:mt-20">
           <figure>
             <FigureImage
-              src={asset("img/ledger-chart.webp")}
+              src={asset("img/ledger-chart-1400.webp")}
+              srcSet={`${asset("img/ledger-chart-900.webp")} 900w, ${asset("img/ledger-chart-1400.webp")} 1400w, ${asset("img/ledger-chart.webp")} 2000w`}
               alt={headline.figure.alt}
               ratio="3 / 2"
               eager
-              sizes="(min-width: 1320px) 1240px, 100vw"
+              sizes="(min-width: 1320px) 1240px, calc(100vw - 48px)"
             />
             <Caption label={headline.figure.label} text={headline.figure.caption} />
           </figure>
