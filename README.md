@@ -76,7 +76,7 @@ Additional checks: masthead height 64px at 320, 768, 1440 and 1920; nav on one l
 
 ## Deviations from DESIGN.md and reasons
 
-- **Wordmark**: the official `ams_logo5.svg` was rendered on paper at 24, 32 and 48px and does not read (steel gradients and 8px lettering on a light ground). The spec's fallback is used: "Automaton Memory System" in Newsreader at 20px beside a plain hexagon outline in ink. The same hexagon is the favicon.
+- **Wordmark**: updated October 21, 2026 to the approved Automaton mark beside "Automaton Memory System" in Newsreader. `AutomatonMark` uses the unchanged traced geometry with `currentColor`; the adaptive favicon uses the same approved mark.
 - **Dates**: section 3 says the dateline is the only date on the page, but section 0 requires the benchmark to be cited exactly (March 25, 2026) and the screenshot caption to say "Snapshot, April 2026", and the Colophon copy in section 3 itself carries "September 2026". These are treated as citations, not page dates: March 25, 2026 appears once in the Table 1 marginal source note; April 2026 once in the Fig. 5 caption; September 2026 in the dateline and the colophon, both as specified.
 - **Table 1 rows**: "three rows plus a delta row" is read as header plus the two conditions plus a delta row; there are only two conditions in section 0.
 - **Part 2 "run-in" heading**: set as an italic display heading above the text rather than run into the first line, to keep one consistent heading style across parts and a clean heading hierarchy for screen readers.
@@ -88,3 +88,32 @@ Additional checks: masthead height 64px at 320, 768, 1440 and 1920; nav on one l
 
 - If a curated `ledger-chart.webp` or `ledger-archive.webp` lands in `_assets/gen/`, copy it over `public/img/` (same names, neutral grayscale, 3:2 and 4:5).
 - Fig. 1 is served at 1264px wide, the largest size the generated source provides; a 1920px source would sharpen it on high-density displays.
+
+## Automaton logo update, October 21, 2026
+
+The approved Automaton mark replaces the legacy hexagon. The traced geometry and
+finished public assets are copied unchanged from Drew's approved asset folder;
+inline SVGs use `currentColor` to preserve this page's palette. `index.html` adds
+the adaptive SVG/ICO favicon, 180px apple-touch icon, and 1200x630 OG/Twitter
+card with `%BASE_URL%` paths. No dependency or deployment configuration changed.
+
+Verification on this branch:
+
+- `BASE_PATH=/ams-launch-ledger/ npm run build`: PASS (`tsc -b && vite build`).
+- Existing `_tools/qa.mjs`, normal and reduced motion: PASS, zero failures in
+  both runs across 320, 390, 768, 1024, 1440 and 1920px. Zero console errors,
+  failed requests, unloaded images or horizontal overflow; 44px mobile targets
+  and hero fit checks pass.
+- Brand checks: 15 PASS, 0 FAIL. Header/footer geometry and `currentColor`
+  verified under light and dark OS preferences; served favicon, ICO, touch icon
+  and social card match the approved files byte-for-byte. Social dimensions
+  verified at 1200x630. Desktop anchor/home navigation and 390px menu/Escape pass.
+- Desktop (1440x900) and mobile (390x844) hero and footer screenshots visually
+  inspected. Full-page captures are also saved.
+
+Local evidence (outside this Git repository):
+`../output/playwright/automaton-logo-20261021/ledger/` and
+`../output/playwright/automaton-logo-20261021/ledger-build.log`.
+Historical `_evidence/` remains untouched. Oversized text entry is not applicable
+to the logo surfaces (no user text input). Public crawler previews and production
+behavior were not tested. This branch is for PR review only; no merge or deploy.
